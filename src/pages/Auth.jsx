@@ -19,6 +19,8 @@ export default function Auth() {
       const result = signUp(data.email, data.password);
       if (!result.success) {
         alert(result.error);
+      } else {
+        navigate("/"); // ← navigate home after signup
       }
     } else {
       const result = login(data.email, data.password);

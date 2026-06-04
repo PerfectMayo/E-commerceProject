@@ -4,14 +4,33 @@
   box-sizing: border-box;
 }
 
+/* ─── CSS Variables ─────────────────────────────────────────────
+   All colors and reusable values live here. Change one value and
+   it updates everywhere in the app automatically.
+──────────────────────────────────────────────────────────────── */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #e0e7ff;
+  --accent: #f59e0b;
+  --text: #1e1b4b;
+  --text-muted: #6b7280;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: rgba(99, 102, 241, 0.15);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(99, 102, 241, 0.08);
+  --transition: 0.2s ease;
+}
+
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: var(--bg);
+  color: var(--text);
   line-height: 1.6;
 }
 
@@ -21,13 +40,17 @@ body {
   flex-direction: column;
 }
 
+/* ─── Navbar ────────────────────────────────────────────────────
+   Sticky top bar with a soft indigo shadow instead of plain gray.
+──────────────────────────────────────────────────────────────── */
 .navbar {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface);
+  box-shadow: var(--shadow);
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid var(--border);
 }
 
 .navbar-container {
@@ -43,9 +66,10 @@ body {
 
 .navbar-brand {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
+  font-weight: 800;
+  color: var(--primary);
   text-decoration: none;
+  letter-spacing: -0.02em;
 }
 
 .navbar-links {
@@ -55,14 +79,15 @@ body {
 }
 
 .navbar-link {
-  color: #333;
+  color: var(--text-muted);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
+  font-size: 0.9rem;
+  transition: color var(--transition);
 }
 
 .navbar-link:hover {
-  color: #007bff;
+  color: var(--primary);
 }
 
 .navbar-auth {
@@ -78,8 +103,8 @@ body {
 }
 
 .navbar-greeting {
-  color: #666;
-  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .navbar-auth-links {
@@ -87,6 +112,7 @@ body {
   gap: 0.5rem;
 }
 
+/* ─── Page & Container ──────────────────────────────────────── */
 .page {
   flex: 1;
   padding: 2rem 0;
@@ -100,10 +126,13 @@ body {
 
 .page-title {
   font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text);
+  letter-spacing: -0.02em;
 }
 
+/* ─── Home Hero ─────────────────────────────────────────────── */
 .home-hero {
   text-align: center;
   padding: 4rem 2rem;
@@ -113,42 +142,48 @@ body {
 
 .home-title {
   font-size: 3rem;
+  font-weight: 800;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--text);
+  letter-spacing: -0.03em;
 }
 
 .home-subtitle {
   font-size: 1.25rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
+/* ─── Product Grid & Cards ──────────────────────────────────────
+   Cards lift with a colored shadow on hover instead of a flat
+   box-shadow. The image area uses a soft indigo gradient.
+──────────────────────────────────────────────────────────────── */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .product-card {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--surface);
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
 }
 
 .product-card-image {
   width: 100%;
   height: 250px;
   object-fit: cover;
+  background: linear-gradient(135deg, var(--primary-light), #ede9fe);
 }
 
 .product-card-content {
@@ -156,15 +191,16 @@ body {
 }
 
 .product-card-name {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text);
 }
 
 .product-card-price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #007bff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
   margin-bottom: 1rem;
 }
 
@@ -173,112 +209,132 @@ body {
   gap: 0.5rem;
 }
 
+/* ─── Product Detail ────────────────────────────────────────── */
 .product-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  background: #fff;
+  background: var(--surface);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .product-detail-image img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 }
 
 .product-detail-name {
   font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--text);
+  letter-spacing: -0.02em;
 }
 
 .product-detail-price {
   font-size: 2rem;
-  font-weight: bold;
-  color: #007bff;
+  font-weight: 700;
+  color: var(--primary);
   margin-bottom: 1.5rem;
 }
 
 .product-detail-description {
-  font-size: 1.1rem;
-  color: #666;
+  font-size: 1.05rem;
+  color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 2rem;
 }
 
+/* ─── Auth Form ─────────────────────────────────────────────────
+   Clean card with refined input focus styles (indigo ring instead
+   of a default browser outline).
+──────────────────────────────────────────────────────────────── */
 .auth-container {
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .auth-form {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   font-weight: 500;
-  color: #333;
+  font-size: 0.875rem;
+  color: var(--text);
 }
 
 .form-input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .form-error {
   display: block;
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
 }
 
 .error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  border-radius: 4px;
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
   margin-bottom: 1rem;
-  border: 1px solid #f5c6cb;
+  border: 1px solid #fecaca;
+  font-size: 0.875rem;
 }
 
 .auth-switch {
   margin-top: 1.5rem;
   text-align: center;
-  color: #666;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .auth-link {
-  color: #007bff;
+  color: var(--primary);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .auth-link:hover {
   text-decoration: underline;
 }
 
+/* ─── Checkout ──────────────────────────────────────────────── */
 .checkout-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -287,23 +343,26 @@ body {
 }
 
 .checkout-items {
-  background: #fff;
+  background: var(--surface);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .checkout-section-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--text);
 }
 
 .checkout-item {
   display: flex;
   gap: 1rem;
   padding: 1.5rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
 }
 
 .checkout-item:last-child {
@@ -311,10 +370,11 @@ body {
 }
 
 .checkout-item-image {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary-light), #ede9fe);
 }
 
 .checkout-item-details {
@@ -322,14 +382,15 @@ body {
 }
 
 .checkout-item-name {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--text);
 }
 
 .checkout-item-price {
-  color: #666;
-  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .checkout-item-controls {
@@ -346,40 +407,43 @@ body {
 }
 
 .quantity-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition), border-color var(--transition);
 }
 
 .quantity-btn:hover {
-  background-color: #f5f5f5;
+  background-color: var(--primary-light);
+  border-color: var(--primary);
 }
 
 .quantity-value {
-  min-width: 40px;
+  min-width: 36px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .checkout-item-total {
-  font-weight: bold;
-  color: #333;
+  font-weight: 700;
+  color: var(--primary);
   font-size: 1.1rem;
 }
 
 .checkout-summary {
-  background: #fff;
+  background: var(--surface);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   height: fit-content;
   position: sticky;
   top: 100px;
@@ -390,69 +454,74 @@ body {
   justify-content: space-between;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
 .checkout-total:last-of-type {
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid var(--text);
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
 }
 
 .checkout-total-label {
-  font-size: 1.1rem;
-  color: #666;
+  font-size: 1rem;
+  color: var(--text-muted);
 }
 
 .checkout-total-value {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
 .checkout-total-final {
   font-size: 1.5rem;
-  color: #007bff;
+  color: var(--primary);
 }
 
+/* ─── Order Success ─────────────────────────────────────────── */
 .order-success {
   text-align: center;
   padding: 4rem 2rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   max-width: 600px;
   margin: 0 auto;
 }
 
 .order-success-title {
   font-size: 2.5rem;
-  color: #28a745;
+  font-weight: 700;
+  color: #16a34a;
   margin-bottom: 1rem;
 }
 
 .order-success-message {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 1.15rem;
+  color: var(--text-muted);
 }
 
+/* ─── Buttons ───────────────────────────────────────────────────
+   Pill shape, multiple variants. Hover lifts the button slightly.
+──────────────────────────────────────────────────────────────── */
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.5rem;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    transform 0.1s;
+  transition: background-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
   text-decoration: none;
   display: inline-block;
   text-align: center;
 }
 
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .btn:active {
@@ -460,37 +529,53 @@ body {
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: var(--primary);
   color: #fff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-dark);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  color: #fff;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border: 1.5px solid var(--border);
 }
 
 .btn-secondary:hover {
-  background-color: #545b62;
+  background-color: #c7d2fe;
 }
 
 .btn-large {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.05rem;
 }
 
 .btn-small {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  padding: 0.45rem 1rem;
+  font-size: 0.8rem;
 }
 
 .btn-block {
   width: 100%;
 }
 
+/* ─── Badge ─────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  margin-bottom: 0.5rem;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .navbar-container {
     flex-direction: column;
@@ -524,6 +609,7 @@ body {
 
   .checkout-item {
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .checkout-item-controls {

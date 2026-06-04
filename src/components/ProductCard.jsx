@@ -22,7 +22,7 @@ export default function ProductCard({ product }) {
             className="btn btn-primary"
             onClick={() => addToCart(product.id)}
           >
-            Add to carte {productQuantityLabel}
+            Add to cart {productQuantityLabel}
           </button>
         </div>
       </div>
