@@ -11,6 +11,7 @@ export default function Auth() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const navigate = useNavigate();
 
   async function onSubmit(data) {
